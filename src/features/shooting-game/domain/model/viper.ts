@@ -45,7 +45,7 @@ export class Viper extends Character {
      * 自身の移動スピード（update 一回あたりの移動量）
      * @type {number}
      */
-    this.speed = 4;
+    this.speed = 6;
     /**
      * ショットを撃ったあとのチェック用カウンタ
      * @type {number}
