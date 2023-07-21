@@ -9,7 +9,7 @@ export const action = (
     viper.speed = 2;
   }
   if (!isKeyDown.Shift) {
-    viper.speed = 4;
+    viper.speed = 6;
   }
   if (isKeyDown.ArrowLeft) {
     viper.position.x -= viper.speed; // 左
