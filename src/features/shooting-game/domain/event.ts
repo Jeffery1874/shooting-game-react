@@ -5,6 +5,7 @@ import store from "../../../app/store";
 import { actions } from "../slice";
 import { Enemy } from "./model/enemy";
 import { Boss } from "./model/boss";
+import { Viper } from "./model/viper";
 
 export class Event {
   emitter: EventEmitter;
@@ -46,6 +47,10 @@ export class Event {
         if (self instanceof Shot) {
           // Shotの場合、衝突すると消滅させる
           self.life = 0;
+        }
+
+        if (target instanceof Viper && target.lives >= 1) {
+          target.respawn();
         }
       }
     );

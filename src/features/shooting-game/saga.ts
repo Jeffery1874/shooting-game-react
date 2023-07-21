@@ -18,18 +18,19 @@ import { Explosion } from "./domain/model/explosion";
 import { BackgroundStar } from "./domain/model/background-star";
 import store, { RootState } from "../../app/store";
 import { Simple, Homing } from "./domain/model/shot-vector";
-
-const CANVAS_WIDTH = 640;
-const CANVAS_HEIGHT = 480;
-const ENEMY_SMALL_MAX_COUNT = 20;
-const ENEMY_LARGE_MAX_COUNT = 5;
-const SHOT_MAX_COUNT = 10;
-const ENEMY_SHOT_MAX_COUNT = 50;
-const HOMING_MAX_COUNT = 50;
-const EXPLOSION_MAX_COUNT = 10;
-const BACKGROUND_STAR_MAX_COUNT = 100;
-const BACKGROUND_STAR_MAX_SIZE = 3;
-const BACKGROUND_STAR_MAX_SPEED = 4;
+import {
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  EXPLOSION_MAX_COUNT,
+  SHOT_MAX_COUNT,
+  ENEMY_SHOT_MAX_COUNT,
+  HOMING_MAX_COUNT,
+  ENEMY_SMALL_MAX_COUNT,
+  ENEMY_LARGE_MAX_COUNT,
+  BACKGROUND_STAR_MAX_COUNT,
+  BACKGROUND_STAR_MAX_SIZE,
+  BACKGROUND_STAR_MAX_SPEED,
+} from "./global";
 
 let util: Canvas2DUtility = null as any;
 let canvas: HTMLCanvasElement = null as any;
@@ -241,7 +242,7 @@ const sceneSetting = () => {
   scene.add("intro", (time: number) => {
     // 3 秒経過したらシーンを invade に変更する
     if (time > 3.0) {
-      scene.use("invade_default_type");
+      scene.use("invade_boss");
     }
   });
   // invade シーン（default type の敵キャラクターを生成）
@@ -387,6 +388,8 @@ const sceneSetting = () => {
       restart = false;
       // スコアをリセットしておく
       // gameScore = 0;
+      // viper的残机设置为2
+      viper.lives = 2;
       // 再度スタートするための座標等の設定
       viper.setComing(
         CANVAS_WIDTH / 2, // 登場演出時の開始 X 座標

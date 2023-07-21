@@ -3,8 +3,10 @@ import { Character } from "./character";
 import { Shot } from "./shot";
 import { cantGoOffScreen } from "../service/position";
 import { action } from "../service/viper";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../../global";
 
 export class Viper extends Character {
+  lives: number;
   speed: number;
   shotCheckCounter: number;
   shotInterval: number;
@@ -35,10 +37,15 @@ export class Viper extends Character {
     super(ctx, x, y, w, h, 0, imagePath);
 
     /**
+     * 残机初始2个
+     */
+    this.lives = 2;
+
+    /**
      * 自身の移動スピード（update 一回あたりの移動量）
      * @type {number}
      */
-    this.speed = 3;
+    this.speed = 4;
     /**
      * ショットを撃ったあとのチェック用カウンタ
      * @type {number}
@@ -112,6 +119,22 @@ export class Viper extends Character {
     // 自身のプロパティに設定する
     this.shotArray = shotArray;
     this.singleShotArray = singleShotArray;
+  }
+
+  /**
+   * 重新登场（复活）方法
+   */
+  respawn() {
+    // 残机减一
+    this.lives--;
+
+    // 设置viper的位置和状态等初始值
+    this.setComing(
+      CANVAS_WIDTH / 2, // 登场演出时的X坐标
+      CANVAS_HEIGHT + 50, // 登场演出时的Y坐标
+      CANVAS_WIDTH / 2, // 登场演出结束时的X坐标
+      CANVAS_HEIGHT - 100 // 登场演出结束时的Y坐标
+    );
   }
 
   /**

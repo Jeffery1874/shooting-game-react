@@ -5,6 +5,12 @@ export const action = (
   isKeyDown: { [k: string]: boolean }
 ): void => {
   // 移動
+  if (isKeyDown.Shift) {
+    viper.speed = 2;
+  }
+  if (!isKeyDown.Shift) {
+    viper.speed = 4;
+  }
   if (isKeyDown.ArrowLeft) {
     viper.position.x -= viper.speed; // 左
   }
