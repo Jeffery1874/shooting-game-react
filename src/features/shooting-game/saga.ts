@@ -214,7 +214,7 @@ const keyHandlerSetting = () => {
     (event) => {
       isKeyDown[`${event.key}`] = true;
       // リトライ
-      if (event.key === "Enter" && viper.life <= 0) {
+      if (event.key === "Enter" && (viper.life <= 0 || boss.life <= 0)) {
         restart = true;
       }
 
@@ -242,7 +242,7 @@ const sceneSetting = () => {
   scene.add("intro", (time: number) => {
     // 3 秒経過したらシーンを invade に変更する
     if (time > 3.0) {
-      scene.use("invade_boss");
+      scene.use("invade_default_type");
     }
   });
   // invade シーン（default type の敵キャラクターを生成）
@@ -367,7 +367,7 @@ const sceneSetting = () => {
     }
     // ボスが破壊されたらシーンを intro に設定する
     if (boss.life <= 0) {
-      scene.use("intro");
+      scene.use("you_win");
     }
   });
   // ゲームオーバーシーン
@@ -382,6 +382,36 @@ const sceneSetting = () => {
     // 文字列の描画
     ctx.font = "bold 72px sans-serif";
     util.drawText("GAME OVER", x, CANVAS_HEIGHT / 2, "#ff0000", textWidth);
+    // 再スタートのための処理
+    if (restart) {
+      // 再スタートフラグはここでまず最初に下げておく
+      restart = false;
+      // スコアをリセットしておく
+      // gameScore = 0;
+      // viper的残机设置为2
+      viper.lives = 2;
+      // 再度スタートするための座標等の設定
+      viper.setComing(
+        CANVAS_WIDTH / 2, // 登場演出時の開始 X 座標
+        CANVAS_HEIGHT + 50, // 登場演出時の開始 Y 座標
+        CANVAS_WIDTH / 2, // 登場演出を終了とする X 座標
+        CANVAS_HEIGHT - 100 // 登場演出を終了とする Y 座標
+      );
+      // シーンを intro に設定
+      scene.use("intro");
+    }
+  });
+  // ゲームクリア
+  scene.add("you_win", (time: number) => {
+    // 流れる文字の幅は画面の幅の半分を最大の幅とする
+    let textWidth = CANVAS_WIDTH / 2;
+    // 文字の幅を全体の幅に足し、ループする幅を決める
+    let loopWidth = CANVAS_WIDTH + textWidth;
+    // フレーム数に対する除算の剰余を計算し、文字列の位置とする
+    let x = CANVAS_WIDTH - ((scene.frame * 2) % loopWidth);
+    // 文字列の描画
+    ctx.font = "bold 72px sans-serif";
+    util.drawText("YOU WIN", x, CANVAS_HEIGHT / 2, "#ff0000", textWidth);
     // 再スタートのための処理
     if (restart) {
       // 再スタートフラグはここでまず最初に下げておく
