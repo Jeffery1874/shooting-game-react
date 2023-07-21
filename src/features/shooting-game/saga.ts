@@ -417,6 +417,24 @@ const preRender = () => {
   }: RootState = store.getState();
   ctx.font = "bold 24px monospace";
   util.drawText(zeroPadding(point, 5), 30, 50, "#ffffff");
+
+  // 绘制残机的图标
+  const lifeIconWidth = 32;
+  const lifeIconHeight = 32;
+  const lifeIconX = CANVAS_WIDTH - lifeIconWidth - 20;
+  const lifeIconY = CANVAS_HEIGHT - lifeIconHeight - 20;
+  const lifeIconImage = new Image();
+  lifeIconImage.src = "viper.png";
+
+  for (let i = 0; i < viper.lives; i++) {
+    ctx.drawImage(
+      lifeIconImage,
+      lifeIconX - i * 40,
+      lifeIconY,
+      lifeIconWidth,
+      lifeIconHeight
+    );
+  }
 };
 
 const updateActor = () => {
