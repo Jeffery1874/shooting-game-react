@@ -242,7 +242,7 @@ const sceneSetting = () => {
   scene.add("intro", (time: number) => {
     // 3 秒経過したらシーンを invade に変更する
     if (time > 3.0) {
-      scene.use("invade_boss");
+      scene.use("invade_default_type");
     }
   });
   // invade シーン（default type の敵キャラクターを生成）
@@ -259,7 +259,9 @@ const sceneSetting = () => {
             // 左側面から出てくる
             e.set(-e.width, 30, 2, new Default());
             // 進行方向は 30 度の方向
-            e.setVectorFromAngle(degreesToRadians(Math.floor(Math.random() * 50)));
+            e.setVectorFromAngle(
+              degreesToRadians(Math.floor(Math.random() * 50))
+            );
           } else {
             // 右側面から出てくる
             e.set(CANVAS_WIDTH + e.width, 30, 2, new Default());
@@ -399,6 +401,9 @@ const sceneSetting = () => {
       );
       // シーンを intro に設定
       scene.use("intro");
+      const healthBarCanvas: any = document.getElementById("health_bar_canvas");
+      const ctx = healthBarCanvas.getContext("2d");
+      ctx.clearRect(0, 0, healthBarCanvas.width, healthBarCanvas.height);
     }
   });
   // ゲームクリア
