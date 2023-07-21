@@ -15,8 +15,8 @@ export const judgeCollision = ({
     return false;
   }
 
-  // 自機キャラクターが対象の場合、isComing 中は無敵
-  if (target instanceof Viper && target.isComing) {
+  // 自機キャラクターが対象の場合、isComing 後の２秒には無敵
+  if (target instanceof Viper && Date.now() - target.comingStart <= 5000) {
     return false;
   }
 
