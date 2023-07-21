@@ -242,24 +242,24 @@ const sceneSetting = () => {
   scene.add("intro", (time: number) => {
     // 3 秒経過したらシーンを invade に変更する
     if (time > 3.0) {
-      scene.use("invade_default_type");
+      scene.use("invade_boss");
     }
   });
   // invade シーン（default type の敵キャラクターを生成）
   scene.add("invade_default_type", (time: number) => {
     // シーンのフレーム数が 30 で割り切れるときは敵キャラクターを配置する
-    if (scene.frame % 30 === 0) {
+    if (scene.frame % 10 === 0) {
       // ライフが 0 の状態の敵キャラクター（小）が見つかったら配置する
       for (let i = 0; i < ENEMY_SMALL_MAX_COUNT; ++i) {
         if (enemyArray[i].life <= 0) {
           let e = enemyArray[i];
           // ここからさらに２パターンに分ける
           // frame を 60 で割り切れるかどうかで分岐する
-          if (scene.frame % 60 === 0) {
+          if (scene.frame % 10 === 0) {
             // 左側面から出てくる
             e.set(-e.width, 30, 2, new Default());
             // 進行方向は 30 度の方向
-            e.setVectorFromAngle(degreesToRadians(30));
+            e.setVectorFromAngle(degreesToRadians(Math.floor(Math.random() * 50)));
           } else {
             // 右側面から出てくる
             e.set(CANVAS_WIDTH + e.width, 30, 2, new Default());

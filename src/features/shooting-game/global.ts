@@ -1,10 +1,10 @@
 export const CANVAS_WIDTH = 640;
 export const CANVAS_HEIGHT = 480;
-export const ENEMY_SMALL_MAX_COUNT = 20;
+export const ENEMY_SMALL_MAX_COUNT = 1000;
 export const ENEMY_LARGE_MAX_COUNT = 5;
 export const SHOT_MAX_COUNT = 10;
 export const ENEMY_SHOT_MAX_COUNT = 50;
-export const HOMING_MAX_COUNT = 50;
+export const HOMING_MAX_COUNT = 10000;
 export const EXPLOSION_MAX_COUNT = 10;
 export const BACKGROUND_STAR_MAX_COUNT = 100;
 export const BACKGROUND_STAR_MAX_SIZE = 3;

@@ -106,8 +106,9 @@ export class FloatingAction implements Action {
       }
     } else {
       // ホーミングショットを放つ
-      if (boss.frame % 50 === 0) {
-        boss.homingFire(0, 1, 3.5);
+
+      if (boss.frame % 5 === 0) {
+        boss.homingFire(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 5);
       }
     }
     // X 座標はサイン波で左右に揺れるように動かす
