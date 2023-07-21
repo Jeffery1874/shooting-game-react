@@ -349,7 +349,7 @@ const sceneSetting = () => {
     // シーンのフレーム数が 0 となる最初のフレームでボスを登場させる
     if (scene.frame === 0) {
       // 画面中央上から登場するように位置を指定し、ライフは 250 に設定
-      boss.set(CANVAS_WIDTH / 2, -boss.height, 250);
+      boss.set(CANVAS_WIDTH / 2, -boss.height, 100);
       // ボスキャラクター自身のモードは invade から始まるようにする
       boss.setAction(new InvadeAction());
     }

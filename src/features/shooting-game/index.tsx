@@ -7,7 +7,7 @@ export function ShootingGame() {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <canvas
         style={{
           margin: "0px auto",
@@ -17,6 +17,17 @@ export function ShootingGame() {
         }}
         id="main_canvas"
         ref={canvas}
+      ></canvas>
+      <canvas
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          backgroundColor: "transparent",
+          width: "300px",
+          height: "10px",
+        }}
+        id="health_bar_canvas"
       ></canvas>
       <button
         style={{
@@ -32,13 +43,13 @@ export function ShootingGame() {
           color: "#f0f0f0",
         }}
       >
-        十字キー: 移動
+        十字键: 移动
         <br />
-        z: ショット
+        z: 攻击
         <br />
-        Space: 一時停止
+        Space: 暂停
         <br />
-        Enter: リトライ
+        Enter: 重新开始
       </div>
     </div>
   );

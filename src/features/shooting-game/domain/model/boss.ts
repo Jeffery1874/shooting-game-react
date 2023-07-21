@@ -14,6 +14,7 @@ export class Boss extends Enemy {
   attackTarget: Character;
   explosionArray: Explosion[];
   event: Event;
+  maxLife: any;
   /**
    * @constructor
    * @param {CanvasRenderingContext2D} ctx - 描画などに利用する 2D コンテキスト
@@ -80,7 +81,21 @@ export class Boss extends Enemy {
     // ボスキャラクターのライフを 0 より大きい値（生存の状態）に設定する
     this.life = life;
     // ボスキャラクターのフレームをリセットする
+    this.maxLife = life;
+
     this.frame = 0;
+
+    // 绘制血条
+    const healthBarCanvas: any = document.getElementById("health_bar_canvas");
+    if (healthBarCanvas) {
+      healthBarCanvas.style.left = `190px`;
+      healthBarCanvas.style.top = `38px`;
+      const ctx = healthBarCanvas.getContext("2d");
+      ctx.clearRect(0, 0, healthBarCanvas.width, healthBarCanvas.height);
+      const healthBarWidth = (this.life / this.maxLife) * healthBarCanvas.width;
+      ctx.fillStyle = "#ff0000"; // 血条颜色为红色
+      ctx.fillRect(0, 0, healthBarWidth, healthBarCanvas.height);
+    }
   }
 
   /**

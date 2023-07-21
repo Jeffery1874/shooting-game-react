@@ -10,6 +10,7 @@ export class Character {
   life: number;
   ready: boolean;
   image: HTMLImageElement;
+  maxLife: any;
   /**
    * @constructor
    * @param {CanvasRenderingContext2D} ctx - 描画などに利用する 2D コンテキスト

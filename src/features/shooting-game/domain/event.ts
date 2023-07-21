@@ -38,9 +38,34 @@ export class Event {
             if (target instanceof Boss) {
               score = 10000;
             }
-
+            if (target instanceof Boss) {
+              const healthBarCanvas: any = document.getElementById("health_bar_canvas");
+              const ctx = healthBarCanvas.getContext("2d");
+              ctx.clearRect(0, 0, healthBarCanvas.width, healthBarCanvas.height);
+            }
             // スコアシステムにもよるが仮でここでは最大スコアを制限
             store.dispatch(actions.addPoint(Math.min(score, 99999)));
+          }
+        } else {
+          //减少boss血量
+          if (target instanceof Boss) {
+            const healthBarCanvas: any =
+              document.getElementById("health_bar_canvas");
+            if (healthBarCanvas) {
+              healthBarCanvas.style.left = `190px`;
+              healthBarCanvas.style.top = `38px`;
+              const ctx = healthBarCanvas.getContext("2d");
+              ctx.clearRect(
+                0,
+                0,
+                healthBarCanvas.width,
+                healthBarCanvas.height
+              );
+              const healthBarWidth =
+                (target.life / target.maxLife) * healthBarCanvas.width;
+              ctx.fillStyle = "#ff0000"; // 血条颜色为红色
+              ctx.fillRect(0, 0, healthBarWidth, healthBarCanvas.height);
+            }
           }
         }
 
